@@ -4,7 +4,6 @@ import { Portfolio } from './portfolio/portfolio';
 import { AboutMe } from './about-me/about-me';
 import { Settings } from './settings/settings';
 import { UserSettings } from './settings/user-settings/user-settings';
-import { AppearanceSettings } from './settings/appearance-settings/appearance-settings';
 import { NetworkSettings } from './settings/network-settings/network-settings';
 
 export const routes: Routes = [
@@ -14,7 +13,13 @@ export const routes: Routes = [
     component: Settings,
     children: [
       { path: 'user-settings', component: UserSettings },
-      { path: 'appearance-settings', component: AppearanceSettings },
+      {
+        path: 'appearance-settings',
+        loadComponent: () =>
+          import('./settings/appearance-settings/appearance-settings').then(
+            (m) => m.AppearanceSettings,
+          ),
+      },
       { path: 'network-settings', component: NetworkSettings },
     ],
   },
